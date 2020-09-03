@@ -33,6 +33,14 @@
     <button class="btn btn-primary mb-2 col-2">Envoyer</button>
 	</form>
     <script>
+			function stripHtml(html){
+    			// Création elément temporaire
+    			var temporalDivElement = document.createElement("div");
+    			// Init
+    			temporalDivElement.innerHTML = html;
+    			// renvoie le bon texte
+    			return temporalDivElement.textContent || temporalDivElement.innerText || "";
+			}
 			function bottom() {
 				$(document).scrollTop($(document).height()); 
 			};
@@ -43,39 +51,51 @@
             $('form').submit(function(e){
                 e.preventDefault(); // prevents page reloading
 				var flagbon = false;
-				if (/\S/.test($('#txt').val()) && $('#txt').val().length < 50) { 
+				var msg = $('#txt').val();
+				if (/\S/.test(msg) && msg.length < 50) { 
 																				/* Empêche les messages à corps vide et
 																				   teste si la chaîne n'est pas trop longue */
+					if (/<\/?[a-z][\s\S]*>/i.test(msg)) {
+						msg = stripHtml(msg);
+						console.log('Passé dedans');
+					}
+					console.log('test');
 					flagbon = true;
 				}
 				else
 				{
 					flagbon = false;
 				}
-				
+
 				if (flagbon)
 				{
-					socket.emit('chat_message', $('#txt').val());
+					socket.emit('chat_message', msg);
 				}
 				$('#txt').val('');
                 return false;
-				bottom();
+				bottom();	//Scroll vers le bas auto
             });
             // append the chat text message
             socket.on('chat_message', function(msg){
                 $('#messages').append($('<li>').html(msg));
-				bottom();
+				bottom();	//Scroll vers le bas auto
             });
             // append text if someone is online
             socket.on('is_online', function(username) {
                 $('#messages').append($('<li>').html(username));
-				bottom();
+				bottom();	//Scroll vers le bas auto
             });
             // ask username
             var username = prompt('Quel pseudo souhaitez-vous utiliser ?');
-			if (/\S/.test(username))
+			if (/\S/.test(username) && username.length < 30)	// Teste si le username n'est pas juste un whitechar et n'est pas trop long
 			{
-				username = "「 " + username + " 」";
+				if (!(/<\/?[a-z][\s\S]*>/i.test(username))) {		// Teste si le username contient du markup html
+					username = "「 " + username + " 」";
+				}
+				else
+				{
+					username = "「 " + stripHtml(username) + " 」";
+				}
 			}
 			else
 			{
