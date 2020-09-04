@@ -1,0 +1,10 @@
+nav {background-color: #E5E5E5;
+     font-family: 'Menco', sans-serif !important;}
+li a {  text-decoration: none !important; 
+        color:#000000 !important; }
+li a:hover{
+    color:#ff8181 !important;
+}
+button.navbar-toggler {display: inline !important;}
+.row{margin-right: 0 !important;
+    margin-left: 0 !important;}

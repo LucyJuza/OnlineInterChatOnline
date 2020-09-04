@@ -1,9 +1,8 @@
 var socket = io();
 window.onbeforeunload = sendgoodsocket;
 function sendgoodsocket() {
-    socket.emit('disconnect1');
+    socket.emit('disconnect2');
 }
-
 function stripHtml(html){
     // Création elément temporaire
     var temporalDivElement = document.createElement("div");
@@ -17,7 +16,6 @@ function bottom() {
 };
 var Height=document.documentElement.scrollHeight;
 var i=1,j=Height,status=0;
-
 // submit text message without reload/refresh the page
 $('form').submit(function(e){
     e.preventDefault(); // prevents page reloading
@@ -38,20 +36,20 @@ $('form').submit(function(e){
 
     if (flagbon)
     {
-        socket.emit('chat_message1', msg);
+        socket.emit('chat_message2', msg);
     }
     $('#txt').val('');
     return false;
     bottom();	//Scroll vers le bas auto
 });
 // append the chat text message
-socket.on('chat_message1', function(msg){
+socket.on('chat_message2', function(msg){
     $('#messages').append($('<li>').html(msg));
     bottom();	//Scroll vers le bas auto
 });
 
 // Reçois le scoket is_online qui indique qu'un user s'est connecté ou déconnecté
-socket.on('is_online1', function(username) {
+socket.on('is_online2', function(username) {
     $('#messages').append($('<li>').html(username));
     bottom();	//Scroll vers le bas auto
 });
@@ -76,4 +74,4 @@ else
 {
     username = "「      」"
 }
-socket.emit('username1', username);
+socket.emit('username2', username);

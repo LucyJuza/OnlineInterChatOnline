@@ -1,0 +1,29 @@
+body {  font: 100% Helvetica, Arial; 
+        background: hsla(353, 32%, 72%, 1);
+
+        background: linear-gradient(45deg, hsla(353, 32%, 72%, 1) 0%, hsla(354, 88%, 41%, 1) 100%);
+    
+        background: -moz-linear-gradient(45deg, hsla(353, 32%, 72%, 1) 0%, hsla(354, 88%, 41%, 1) 100%);
+    
+        background: -webkit-linear-gradient(45deg, hsla(353, 32%, 72%, 1) 0%, hsla(354, 88%, 41%, 1) 100%);
+    
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CFA2A7", endColorstr="#C50D1E", GradientType=1 );
+        background-repeat: no-repeat; 
+        background-size: cover; 
+        background-position: center center;
+        background-attachment: fixed; }
+#divform {  background-color: #ffffff; width: 100%;
+            padding: 0.5%; margin:0%
+                    
+        }
+#divinput {width: 70%; padding: 0.1%;}
+#divbtn {float:left; margin-left: 0%; width: 30%; padding:0.1%;}
+#divbtn button {width: 100% !important; clear: left;margin-left: 0;}
+#convo{z-index:1; width:100%;}    
+#messages { list-style-type: none;
+            margin: 0%; padding: 0%;}
+#messages li {  padding: 0.3% 0.1%; 
+                width: 100%;
+                font: 50%}
+#messages li:nth-child(odd) { background-color: #E5E5E5; }
+#messages li:nth-child(even) { background-color: #E9A4AB;}
