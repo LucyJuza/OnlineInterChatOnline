@@ -1,10 +1,15 @@
-nav {background-color: #E5E5E5;
-     font-family: 'Menco', sans-serif !important;}
-li a {  text-decoration: none !important; 
-        color:#000000 !important; }
-li a:hover{
-    color:#ff8181 !important;
+body{
+background: hsla(354, 88%, 41%, 1);
+
+background: linear-gradient(45deg, hsla(354, 88%, 41%, 1) 10%, hsla(353, 32%, 72%, 1) 87%);
+
+background: -moz-linear-gradient(45deg, hsla(354, 88%, 41%, 1) 10%, hsla(353, 32%, 72%, 1) 87%);
+
+background: -webkit-linear-gradient(45deg, hsla(354, 88%, 41%, 1) 10%, hsla(353, 32%, 72%, 1) 87%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#c50d1e", endColorstr="#cfa2a7", GradientType=1 );
 }
-button.navbar-toggler {display: inline !important;}
-.row{margin-right: 0 !important;
-    margin-left: 0 !important;}
+.card-text{
+    text-align: justify;
+    text-justify: auto;
+}

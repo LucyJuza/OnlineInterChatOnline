@@ -14,7 +14,6 @@ body {  font: 100% Helvetica, Arial;
         background-attachment: fixed; }
 #divform {  background-color: #ffffff; width: 100%;
             padding: 0.5%; margin:0%
-                    
         }
 #divinput {width: 70%; padding: 0.1%;}
 #divbtn {float:left; margin-left: 0%; width: 30%; padding:0.1%;}
@@ -22,8 +21,13 @@ body {  font: 100% Helvetica, Arial;
 #convo{z-index:1; width:100%;}    
 #messages { list-style-type: none;
             margin: 0%; padding: 0%;}
-#messages li {  padding: 0.3% 0.1%; 
+#messages li {
                 width: 100%;
                 font: 50%}
-#messages li:nth-child(odd) { background-color: #E5E5E5; }
-#messages li:nth-child(even) { background-color: #E9A4AB;}
+#messages p{
+        margin-bottom: 0 !important; 
+}
+#messages li:nth-child(odd) { background-color: #CFA2A7; }
+#messages li:nth-child(even) { background-color: #FF6347;}
+#connect { background-color: #3DDC97 !important; }
+#disconnect { background-color: #FCB07E !important;}

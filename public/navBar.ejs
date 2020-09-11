@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="./stylnav.css"/>
+<nav class="sticky-top">
+    <nav class="navbar navbar-light">
+      <a class="navbar-brand" style="width: 230px; margin-right: 0px;"" href="/">
+        <img src="./favicon.ico" width="20%" height="20%" class="d-inline-block align-center" alt="" loading="lazy"><span class="text-black h4">OnlineInterChat</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">
+          </span>
+        </nav>
+      <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-light p-2">
+          <ul class="navbar-nav mr-auto"> <!--Liste des Salons disponibles-->
+            <%- include('./list') %>
+          </ul>
+        </div>
+      </div>
+    </nav>

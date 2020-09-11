@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OnlineInterChat - Salon 1</title>
+  <%- include('./includeHeaders') %> <!--Ajout des headers (imports Socket.io boostrapp etc..)-->
+  </head>
+  <body>
+    <%- include('./navBar') %> 
+	  <%- include('./coreChat') %>        <!--Ajout de la partie qui permets d'écrire et d'envoyer des messages-->
+    <script src="./chat.js"></script> <!--Ajout de la partie qui fais la connexion avec les sockets du backend-->
+  </body>
+</html>

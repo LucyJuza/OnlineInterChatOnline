@@ -16,17 +16,20 @@ app.use(express.static("public"));              // Définition du répertoire da
 app.use(favicon(path.join(__dirname + "/public/favicon.ico"))); // Utilisation d'une icone pour le site
 
 // Actions effectuées quand l'utilisateur essaie d'atteindre une page
+app.get("/", function(req,res) {
+  res.render(path.join(__dirname + "/public/index.ejs")); // Envoi de l'interface à l'utilisateur
+})
 app.get("/chatroom-1", function(req, res) {
   logconnection(req,1);
-  res.sendFile(path.join(__dirname + "/public/chatroom.html")); // envoi de l'interface web à l'utilisateur
+  res.render(path.join(__dirname + "/public/chatroom.ejs")); // envoi de l'interface web à l'utilisateur
 });
 app.get("/chatroom-2",function(req,res) {
   logconnection(req,2);
-  res.sendFile(path.join(__dirname + "/public/chatroom-2.html")); // envoi de l'interface web à l'utilisateur
+  res.render(path.join(__dirname + "/public/chatroom-2.ejs")); // envoi de l'interface web à l'utilisateur
 })
 app.get("/chatroom-3",function(req,res) {
   logconnection(req,2);
-  res.sendFile(path.join(__dirname + "/public/chatroom-3.html")); // envoi de l'interface web à l'utilisateur
+  res.render(path.join(__dirname + "/public/chatroom-3.ejs")); // envoi de l'interface web à l'utilisateur
 })
 
 /* LOGGING */
@@ -42,7 +45,7 @@ function logconnection(req) {
   } else {
     ipAddr = req.connection.remoteAddress;  // Si pas de proxy -> Récupère simplement l’ip
   }
-  reqipbase = String(ipAddr);
+  reqipbase = String(ipAddr);               // Transfer de l'adresse illisible humainement vers une variable déclarée préalablement
   reqiplist = reqipbase.split(":");           // Sépare l'ip reçue au niveau des ":"
   reqip = reqiplist[(reqiplist.length -1)];   // On récupère seulement la dernière partie
   // Partie logging de la connexion
@@ -64,6 +67,7 @@ function logusername(username,numchat) {
    switch (reqip) {                  /* Switchcase pour savoir si c'est le localhost ou une ip distante qui essaie d'accéder au serveur. 
                                         Switchcase utilisé pour sa vitesse comparé à un if else (if else imbriqués trop = pas bien)*/
      case "1" || "127.0.0.1":
+                                    // La longue chaîne començant par `$ sers à récpérer la date et l'heure du jour dans un format lisible
        loggerUsername.log("info",String( `${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}` + " le localhost a choisi " + username + " comme nom d'utilisateur sur le salon " + numchat));
        break;
    
@@ -113,11 +117,11 @@ io.sockets.on('connection', function(socket) { // quand le socket est crée
     });
 
     socket.on('disconnect1', function(username) {  // quand un utilisateur se déconnecte.
-        io.emit('is_online1', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
+        io.emit('is_down1', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
     })
 
     socket.on('chat_message1', function(message) { // quand le serveur reçoit un message
-        io.emit('chat_message1', '<strong>' + socket.username + '</strong>: ' + message);
+        io.emit('chat_message1', '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
     });
     
     // Sockets du Salon 2
@@ -129,11 +133,11 @@ io.sockets.on('connection', function(socket) { // quand le socket est crée
      });
 
      socket.on('disconnect2', function(username) {  // quand un utilisateur se déconnecte.
-         io.emit('is_online2', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
+         io.emit('is_down2', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
      })
 
      socket.on('chat_message2', function(message) { // quand le serveur reçoit un message
-         io.emit('chat_message2', '<strong>' + socket.username + '</strong>: ' + message);
+         io.emit('chat_message2', '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
      });
     // Sockets du salon 3
 
@@ -144,10 +148,10 @@ io.sockets.on('connection', function(socket) { // quand le socket est crée
      });
 
      socket.on('disconnect3', function(username) {  // quand un utilisateur se déconnecte.
-         io.emit('is_online3', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
+         io.emit('is_down3', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
      })
 
      socket.on('chat_message3', function(message) { // quand le serveur reçoit un message
-         io.emit('chat_message3', '<strong>' + socket.username + '</strong>: ' + message);
+         io.emit('chat_message3', '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
      });
   });

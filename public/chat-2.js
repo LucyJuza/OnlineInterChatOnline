@@ -21,7 +21,7 @@ $('form').submit(function(e){
     e.preventDefault(); // prevents page reloading
     var flagbon = false;
     var msg = $('#txt').val();
-    if (/\S/.test(msg) && msg.length < 50) { 
+    if (/\S/.test(msg) && msg.length < 200) { 
                                                                     /* Empêche les messages à corps vide et
                                                                        teste si la chaîne n'est pas trop longue */
         if (/<\/?[a-z][\s\S]*>/i.test(msg)) {
@@ -54,6 +54,11 @@ socket.on('is_online2', function(username) {
     bottom();	//Scroll vers le bas auto
 });
 
+// Reçois socket "is_down" ce qui veut dire que quelqu'un s'est déconnecté
+socket.on('is_down2',function(username) {
+    $('#messages').append($('<li id="disconnect">').html(username));
+    bottom();	//Scroll vers le bas auto
+});
 
 // Partie Pseudo
 var username = prompt('Quel pseudo souhaitez-vous utiliser ?');
