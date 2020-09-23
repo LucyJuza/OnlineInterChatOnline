@@ -15,22 +15,26 @@ var path = require("path");                       // Intégration du module "Pat
 app.use(express.static("public"));              // Définition du répertoire dans lequel trouver les fichiers a envoyer à l'utilisateur
 app.use(favicon(path.join(__dirname + "/public/favicon.ico"))); // Utilisation d'une icone pour le site
 
+
+function Renderchatnox(req,res,nodechat) { // permets d'éviter du copier collé de code sur le render des chats et le log des connexion
+  logconnection(req,nodechat);
+  res.render(path.join(__dirname + "/public/chatroom.ejs"),{'title' : 'OnlineInterChat - Salon ' + nodechat}); // envoi de l'interface web à l'utilisateur
+}
+
 // Actions effectuées quand l'utilisateur essaie d'atteindre une page
 app.get("/", function(req,res) {
   res.render(path.join(__dirname + "/public/index.ejs")); // Envoi de l'interface à l'utilisateur
 })
 app.get("/chatroom-1", function(req, res) {
-  logconnection(req,1);
-  res.render(path.join(__dirname + "/public/chatroom.ejs")); // envoi de l'interface web à l'utilisateur
+    Renderchatnox(req,res,1);               //Appel de la fonction précédement définie pour permettre l'affichage de l'interface
 });
 app.get("/chatroom-2",function(req,res) {
-  logconnection(req,2);
-  res.render(path.join(__dirname + "/public/chatroom-2.ejs")); // envoi de l'interface web à l'utilisateur
+    Renderchatnox(req,res,2);
 })
 app.get("/chatroom-3",function(req,res) {
-  logconnection(req,2);
-  res.render(path.join(__dirname + "/public/chatroom-3.ejs")); // envoi de l'interface web à l'utilisateur
+    Renderchatnox(req,res,3);
 })
+
 
 /* LOGGING */
 console.log(`Our app is running on port ${ port }`); // écriture dans les logs CLI que l'application tourne sur le port "x"
@@ -108,50 +112,20 @@ const loggerUsername = createLogger({
 module.exports = loggerUsername;
 
 // Partie de gestion des sockets
+
 io.sockets.on('connection', function(socket) { // quand le socket est crée
-    // Sockets du Salon 1
-    socket.on('username1', function(username) { // quand l'utilisateur a défini son pseudo
+    // Sockets de, connexion, déconnection et d'envoi de message
+    socket.on('username', function(username,nochan) { // quand l'utilisateur a défini son pseudo
         socket.username = username;
-        logusername(username,1);
-        io.emit('is_online1', '🔵 <i>' + socket.username + ' a rejoint le salon</i>');
+        logusername(username,nochan);
+        io.emit('is_online' + nochan, '🔵 <i>' + socket.username + ' a rejoint le salon</i>');
     });
 
-    socket.on('disconnect1', function(username) {  // quand un utilisateur se déconnecte.
-        io.emit('is_down1', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
+    socket.on('deco', function(nochan) {  // quand un utilisateur se déconnecte.
+        io.emit('is_down' + nochan, '🔴 <i>' + socket.username + ' a quitté le salon</i>');
     })
 
-    socket.on('chat_message1', function(message) { // quand le serveur reçoit un message
-        io.emit('chat_message1', '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
+    socket.on('chat_message', function(message,nochan) { // quand le serveur reçoit un message
+        io.emit('chat_message' + nochan, '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
     });
-    
-    // Sockets du Salon 2
-
-    socket.on('username2', function(username) { // quand l'utilisateur a défini son pseudo
-        socket.username = username;
-        logusername(username,2);
-        io.emit('is_online2', '🔵 <i>' + socket.username + ' a rejoint le salon</i>');
-     });
-
-     socket.on('disconnect2', function(username) {  // quand un utilisateur se déconnecte.
-         io.emit('is_down2', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
-     })
-
-     socket.on('chat_message2', function(message) { // quand le serveur reçoit un message
-         io.emit('chat_message2', '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
-     });
-    // Sockets du salon 3
-
-    socket.on('username3', function(username) { // quand l'utilisateur a défini son pseudo
-         socket.username = username;
-         logusername(username,3);
-         io.emit('is_online3', '🔵 <i>' + socket.username + ' a rejoint le salon</i>');
-     });
-
-     socket.on('disconnect3', function(username) {  // quand un utilisateur se déconnecte.
-         io.emit('is_down3', '🔴 <i>' + socket.username + ' a quitté le salon</i>');
-     })
-
-     socket.on('chat_message3', function(message) { // quand le serveur reçoit un message
-         io.emit('chat_message3', '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
-     });
   });
