@@ -15,9 +15,9 @@ var path = require("path");                       // Intégration du module "Pat
 app.use(express.static("public"));              // Définition du répertoire dans lequel trouver les fichiers a envoyer à l'utilisateur
 app.use(favicon(path.join(__dirname + "/public/favicon.ico"))); // Utilisation d'une icone pour le site
 
-
-function Renderchatnox(req,res,nodechat) { // permets d'éviter du copier collé de code sur le render des chats et le log des connexion
-  logconnection(req,nodechat);
+/*Fonction qui permets l'optimisation du code et qui évite les copiés-collés*/
+function renderchatnox(req,res,nodechat) { // permets d'éviter du copier collé de code sur le render des chats et le log des connexion
+  logconnection(req,nodechat);  // Logging de la connexion à la sale
   res.render(path.join(__dirname + "/public/chatroom.ejs"),{'title' : 'OnlineInterChat - Salon ' + nodechat}); // envoi de l'interface web à l'utilisateur
 }
 
@@ -25,16 +25,45 @@ function Renderchatnox(req,res,nodechat) { // permets d'éviter du copier collé
 app.get("/", function(req,res) {
   res.render(path.join(__dirname + "/public/index.ejs")); // Envoi de l'interface à l'utilisateur
 })
-app.get("/chatroom-1", function(req, res) {
-    Renderchatnox(req,res,1);               //Appel de la fonction précédement définie pour permettre l'affichage de l'interface
+app.param(function(name, fn){
+  if (fn instanceof RegExp) {
+    return function(req, res, next, val){
+      var captures;
+      if (captures = fn.exec(String(val))) {
+        req.params[name] = captures;
+        next();
+      } else {
+        next('route');
+      }
+    }
+  }
 });
-app.get("/chatroom-2",function(req,res) {
-    Renderchatnox(req,res,2);
+app.param('id', /^[0-9]/);
+app.get('/chatroom-:id', function(req, res) {
+  var url = req.url;
+  console.log(url);
+  var chatroomid = url.substring(10);
+  console.log(chatroomid);
+  renderchatnox(req,res,chatroomid);  //Appel de la fonction précédement définie pour permettre l'affichage de l'interface
+});
+/*app.get("/chatroom-2",function(req,res) {
+  renderchatnox(req,res,2);
 })
 app.get("/chatroom-3",function(req,res) {
-    Renderchatnox(req,res,3);
+  renderchatnox(req,res,3);
 })
-
+app.get("/chatroom-4",function(req,res) {
+  renderchatnox(req,res,4);
+})
+app.get("/chatroom-5",function(req,res) {
+  renderchatnox(req,res,5);
+})
+app.get("/chatroom-6",function(req,res) {
+  renderchatnox(req,res,6);
+})
+app.get("/chatroom-7",function(req,res) {
+  renderchatnox(req,res,7);
+})*/
 
 /* LOGGING */
 console.log(`Our app is running on port ${ port }`); // écriture dans les logs CLI que l'application tourne sur le port "x"

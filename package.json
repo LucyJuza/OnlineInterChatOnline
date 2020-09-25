@@ -1,5 +1,5 @@
 {
-  "name": "OnlineInterChat",
+  "name": "onlineinterchat",
   "version": "1.0.0",
   "description": "Projet de chat dans le cadre des portes ouvertes de l'EPTM",
   "main": "index.js",

@@ -27,18 +27,38 @@ function sendgoodsocket() {
 $('form').submit(function(e){
     e.preventDefault(); // prevents page reloading
     var flagbon = false;
+    var maxSizemsg = 300;
     var msg = $('#txt').val();
-    if (/\S/.test(msg) && msg.length < 200) { 
+    if (/\S/.test(msg) && msg.length <= maxSizemsg) { 
                                                                     /* Empêche les messages à corps vide et
                                                                        teste si la chaîne n'est pas trop longue */
         if (/<\/?[a-z][\s\S]*>/i.test(msg)) {
             msg = stripHtml(msg);
+            if ( !(/\S/.test(msg)) )
+            {
+                flagbon = false;
+                displayerrorwhitechar();
+            }
+            else
+            {
+                flagbon = true;
+            }
         }
-        flagbon = true;
+        else
+        {
+            flagbon = true;
+            hideerrors();
+        }
+    }
+    else if (msg.length > maxSizemsg)
+    {
+        flagbon = false;
+        displayerrortoolong(500);
     }
     else
     {
         flagbon = false;
+        displayerrorwhitechar();
     }
 
     if (flagbon)
@@ -63,7 +83,6 @@ socket.on('is_online' + nochan, function(username) {
 
 // Reçois socket "is_down" ce qui veut dire que quelqu'un s'est déconnecté
 socket.on('is_down' + nochan, function(username) {
-    console.log('Reçu une déco');
     $('#messages').append($('<li id="disconnect">').html(username));
     bottom();	//Scroll vers le bas auto
 });

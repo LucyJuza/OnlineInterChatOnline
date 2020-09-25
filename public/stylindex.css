@@ -13,3 +13,17 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#c50d1e", en
     text-align: justify;
     text-justify: auto;
 }
+html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    margin-bottom: 60px;
+  }
+  footer, footer.div {
+    background-color: #E5E5E5;
+  }
+p.text-center{
+    margin-bottom: 2%;
+}
+  

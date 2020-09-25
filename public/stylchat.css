@@ -31,3 +31,6 @@ body {  font: 100% Helvetica, Arial;
 #messages li:nth-child(even) { background-color: #FF6347;}
 #connect { background-color: #3DDC97 !important; }
 #disconnect { background-color: #FCB07E !important;}
+#errors {
+        margin-bottom: 0px;
+    }
