@@ -1,3 +1,4 @@
+// Déclaration variables / constantes
 const express = require("express");       // Utilisation du module "Express"
 const app = express();                    // Le serveur utilise express
 const http = require("http").Server(app); // Création du serveur http pour traiter les requêtes
@@ -25,45 +26,12 @@ function renderchatnox(req,res,nodechat) { // permets d'éviter du copier collé
 app.get("/", function(req,res) {
   res.render(path.join(__dirname + "/public/index.ejs")); // Envoi de l'interface à l'utilisateur
 })
-app.param(function(name, fn){
-  if (fn instanceof RegExp) {
-    return function(req, res, next, val){
-      var captures;
-      if (captures = fn.exec(String(val))) {
-        req.params[name] = captures;
-        next();
-      } else {
-        next('route');
-      }
-    }
-  }
-});
-app.param('id', /^[0-9]/);
-app.get('/chatroom-:id', function(req, res) {
-  var url = req.url;
-  console.log(url);
-  var chatroomid = url.substring(10);
-  console.log(chatroomid);
+
+app.get('/chatroom-:id([0-9]+)', function(req, res) {  // Gestion dinamique des chats
+  var url = req.url;                  // Url à laquelle l'ulisateur essaie de se connecter
+  var chatroomid = url.substring(10); // Récupération du "n° de channel"
   renderchatnox(req,res,chatroomid);  //Appel de la fonction précédement définie pour permettre l'affichage de l'interface
 });
-/*app.get("/chatroom-2",function(req,res) {
-  renderchatnox(req,res,2);
-})
-app.get("/chatroom-3",function(req,res) {
-  renderchatnox(req,res,3);
-})
-app.get("/chatroom-4",function(req,res) {
-  renderchatnox(req,res,4);
-})
-app.get("/chatroom-5",function(req,res) {
-  renderchatnox(req,res,5);
-})
-app.get("/chatroom-6",function(req,res) {
-  renderchatnox(req,res,6);
-})
-app.get("/chatroom-7",function(req,res) {
-  renderchatnox(req,res,7);
-})*/
 
 /* LOGGING */
 console.log(`Our app is running on port ${ port }`); // écriture dans les logs CLI que l'application tourne sur le port "x"
