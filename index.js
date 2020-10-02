@@ -1,3 +1,8 @@
+// NoeJuza - OnlineInerChat 2020-2021 - index.js
+// Contient le fonctionnement du backend
+// ainsi que les logiques d'interactions
+// du routage et des sockets
+//-----------------------------------------------------------------------------------------------------------------
 // Déclaration variables / constantes
 const express = require("express");       // Utilisation du module "Express"
 const app = express();                    // Le serveur utilise express
@@ -15,6 +20,8 @@ const io = require("socket.io").listen(server);   // Intégration du module Sock
 var path = require("path");                       // Intégration du module "Path
 app.use(express.static("public"));              // Définition du répertoire dans lequel trouver les fichiers a envoyer à l'utilisateur
 app.use(favicon(path.join(__dirname + "/public/favicon.ico"))); // Utilisation d'une icone pour le site
+//-----------------------------------------------------------------------------------------------------------------
+//Fonctions et logique d'interaction de routage
 
 /*Fonction qui permets l'optimisation du code et qui évite les copiés-collés*/
 function renderchatnox(req,res,nodechat) { // permets d'éviter du copier collé de code sur le render des chats et le log des connexion
@@ -27,15 +34,18 @@ app.get("/", function(req,res) {
   res.render(path.join(__dirname + "/public/index.ejs")); // Envoi de l'interface à l'utilisateur
 })
 
-app.get('/chatroom-:id([0-9]+)', function(req, res) {  // Gestion dinamique des chats
+// Gestion dynamique des chats
+app.get('/chatroom-:id([0-9]+)', function(req, res) {  
   var url = req.url;                  // Url à laquelle l'ulisateur essaie de se connecter
   var chatroomid = url.substring(10); // Récupération du "n° de channel"
   renderchatnox(req,res,chatroomid);  //Appel de la fonction précédement définie pour permettre l'affichage de l'interface
 });
 
-/* LOGGING */
-console.log(`Our app is running on port ${ port }`); // écriture dans les logs CLI que l'application tourne sur le port "x"
+//-----------------------------------------------------------------------------------------------------------------
+// Partie de gestion des logs
+console.log(`L'aplication es démarrée sur le port: ${ port }`); // écriture dans les logs CLI que l'application tourne sur le port "x"
 
+// Fonction appellée pour logger une connexion à un salon.
 function logconnection(req) {
   var dt = new Date();          // Création d'un objet de type "Date" pour les logs
   // Récupération de l'ip de l'utilisateur sous forme lisible
@@ -60,7 +70,7 @@ function logconnection(req) {
   ));
   }
 }
-
+// Fonction appellée pour logger le choix de nom d'utilisateur
 function logusername(username,numchat) {
   var dt = new Date();          // Création d'un objet de type "Date" pour les logs
   // Logging du choix username
@@ -86,17 +96,20 @@ function logusername(username,numchat) {
 
 const { createLogger, format, transports } = require('winston'); // Définition de l'utilisation de winston (permets de simplifier les logs)
 
+// Logger pour les connexions à un salon e chat
 const logger = createLogger({       //Création d'un objet de log de winston 
   level: 'info',            // Sort des logs dit "d'info" servant à donner des informations
-  exitOnError: false,
+  exitOnError: false,       // Si erreur -> Ne pas sortir du log
   format: format.json(),    // Formatage en json pour la lisibilité
   transports: [
-    new transports.File({ filename: __dirname + `/logs/MesLogsConnexion.log` }), // Choix du fichier dans lequel c'est stocké
+    new transports.File({ filename: __dirname + `/logs/MesLogsConnexion.log` }), // Choix du fichier de destination
   ],
 });
 
 module.exports = logger;  // Mise en fonctionnement du logger
 
+// Logger pour les noms d'utilisateur choisis
+// Même fonctionnement qu'en dessus mais vers un fichier différent
 const loggerUsername = createLogger({
   level: 'info',
   exitOnError: false,
@@ -108,6 +121,7 @@ const loggerUsername = createLogger({
 
 module.exports = loggerUsername;
 
+//-----------------------------------------------------------------------------------------------------------------
 // Partie de gestion des sockets
 
 io.sockets.on('connection', function(socket) { // quand le socket est crée
@@ -126,3 +140,4 @@ io.sockets.on('connection', function(socket) { // quand le socket est crée
         io.emit('chat_message' + nochan, '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
     });
   });
+//-----------------------------------------------------------------------------------------------------------------

@@ -1,12 +1,6 @@
-<li class="nav-item"><a class="nav-link" href="/chatroom-1">Salon de chat 1</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-2">Salon de chat 2</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-3">Salon de chat 3</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-4">Salon de chat 4</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-5">Salon de chat 5</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-6">Salon de chat 6</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-7">Salon de chat 7</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-8">Salon de chat 8</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-9">Salon de chat 9</a></li>
-<li class="nav-item"><a class="nav-link" href="/chatroom-10">Salon de chat 10</a></li>
-<li class="nav-item"><a id="ShowMore" onclick="ShowMore()" class="nav-link" href="#">Afficher plus</a></li>
-<li class="nav-item"><a id="ShowLess" onclick="ShowLess()" class="nav-link" href="#">Afficher moins</a></li>
+<% for (var i =1; i <=10;  i++ ) { %>
+    <li class="nav-item"><a class="nav-link" href=<%= './chatroom-' + i %> >Salon de chat <%= i %> </a></li>
+    <%#  Boucle pour afficher les salons de 1 à 10 %>
+<% } %>
+<li class="nav-item"><a id="ShowMore" onclick="ShowMore()" class="nav-link" href="#ShowLess">Afficher plus</a></li>
+<li class="nav-item"><a id="ShowLess" onclick="ShowLess()" class="nav-link" href="#ShowMore">Afficher moins</a></li>

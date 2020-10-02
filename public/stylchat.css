@@ -13,7 +13,7 @@ body {  font: 100% Helvetica, Arial;
         background-position: center center;
         background-attachment: fixed; }
 #divform {  background-color: #ffffff; width: 100%;
-            padding: 0.5%; margin:0%
+            padding: 0.5%; margin:0%;
         }
 #divinput {width: 70%; padding: 0.1%;}
 #divbtn {float:left; margin-left: 0%; width: 30%; padding:0.1%;}
