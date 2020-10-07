@@ -106,7 +106,7 @@ const logger = createLogger({       //Création d'un objet de log de winston
   ],
 });
 
-module.exports = logger;  // Mise en fonctionnement du logger
+module.exports = logger;  // Mise en fonctionnement du log
 
 // Logger pour les noms d'utilisateur choisis
 // Même fonctionnement qu'en dessus mais vers un fichier différent
