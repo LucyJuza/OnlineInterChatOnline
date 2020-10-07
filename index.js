@@ -47,7 +47,6 @@ console.log(`L'aplication es démarrée sur le port: ${ port }`); // écriture d
 
 // Fonction appellée pour logger une connexion à un salon.
 function logconnection(req) {
-  var dt = new Date();          // Création d'un objet de type "Date" pour les logs
   // Récupération de l'ip de l'utilisateur sous forme lisible
   var ipAddr = req.headers["x-forwarded-for"];
   if (ipAddr){                              // teste si il y’a un ou plusieurs proxy
@@ -61,66 +60,7 @@ function logconnection(req) {
   reqip = reqiplist[(reqiplist.length -1)];   // On récupère seulement la dernière partie
   // Partie logging de la connexion
   console.log("Nouvelle connexion au serveur depuis: " + reqip); // Permets d'écrire que quelqu'un s'est connecté au site dans la console.
-  if (String(ipAddr) == "::1" || String(ipAddr) == "::ffff:127.0.0.1") {    // Test si l'ip est celle du localhost
-    logger.log("info",String("le localhost s'est connecté à " + `${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`));
-  }
-  else
-  {
-    logger.log("info",String(reqip + " s'est connecté à " + `${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`
-  ));
-  }
 }
-// Fonction appellée pour logger le choix de nom d'utilisateur
-function logusername(username,numchat) {
-  var dt = new Date();          // Création d'un objet de type "Date" pour les logs
-  // Logging du choix username
-  if (reqip != null || reqip != "") { // Teste si l'ip a été récupérée, en cas de bug de sync, renvoie le même message sans ip de l'utilisateur
-   switch (reqip) {                  /* Switchcase pour savoir si c'est le localhost ou une ip distante qui essaie d'accéder au serveur. 
-                                        Switchcase utilisé pour sa vitesse comparé à un if else (if else imbriqués trop = pas bien)*/
-     case "1" || "127.0.0.1":
-                                    // La longue chaîne començant par `$ sers à récpérer la date et l'heure du jour dans un format lisible
-       loggerUsername.log("info",String( `${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}` + " le localhost a choisi " + username + " comme nom d'utilisateur sur le salon " + numchat));
-       break;
-   
-     default:
-       loggerUsername.log("info",String( `${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}` + " " + reqip  + " a choisi " + username + " comme nom d'utilisateur sur le salon " + numchat));
-       break;
-   }
- }
- else
- {
-   loggerUsername.log("info",String( `${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}` + " Un utilisateur a commencé à utiliser " + username + " comme nom d'utilisateur sur le salon " + numchat));
- }
-
-}
-
-const { createLogger, format, transports } = require('winston'); // Définition de l'utilisation de winston (permets de simplifier les logs)
-
-// Logger pour les connexions à un salon e chat
-const logger = createLogger({       //Création d'un objet de log de winston 
-  level: 'info',            // Sort des logs dit "d'info" servant à donner des informations
-  exitOnError: false,       // Si erreur -> Ne pas sortir du log
-  format: format.json(),    // Formatage en json pour la lisibilité
-  transports: [
-    new transports.File({ filename: __dirname + `/logs/MesLogsConnexion.log` }), // Choix du fichier de destination
-  ],
-});
-
-module.exports = logger;  // Mise en fonctionnement du log
-
-// Logger pour les noms d'utilisateur choisis
-// Même fonctionnement qu'en dessus mais vers un fichier différent
-const loggerUsername = createLogger({
-  level: 'info',
-  exitOnError: false,
-  format: format.json(),
-  transports: [
-    new transports.File({ filename: __dirname + `/logs/MesLogsUserNames.log` }),
-  ],
-});
-
-module.exports = loggerUsername;
-
 //-----------------------------------------------------------------------------------------------------------------
 // Partie de gestion des sockets
 
@@ -128,7 +68,6 @@ io.sockets.on('connection', function(socket) { // quand le socket est crée
     // Sockets de, connexion, déconnection et d'envoi de message
     socket.on('username', function(username,nochan) { // quand l'utilisateur a défini son pseudo
         socket.username = username;
-        logusername(username,nochan);
         io.emit('is_online' + nochan, '🔵 <i>' + socket.username + ' a rejoint le salon</i>');
     });
 
