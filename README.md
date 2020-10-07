@@ -1,5 +1,6 @@
-# OnlineInterChat
+# OnlineInterChatOnline
 Il s'agit d'un projet faisant partie de l'orientation "DEV" de l'EPTM, Réalisé par Noé Juzan, Apprenti de 3ème année à l'EPTM.
+Ici il s'agit de la version ONLINE du projet, celle destinée à être poussée sur heroku
 # Qu'est-ce que le projet?
 OnlineInterChat est une plateforme de discussion qui peut être déployée soit, localement
 Pour permettre aux collaborateurs d'une entreprise, se trouvant dans le même réseau de discuter
