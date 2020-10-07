@@ -1,24 +1,35 @@
-body {  font: 100% Helvetica, Arial; 
-        background: hsla(353, 32%, 72%, 1);
-
-        background: linear-gradient(45deg, hsla(353, 32%, 72%, 1) 0%, hsla(354, 88%, 41%, 1) 100%);
-    
-        background: -moz-linear-gradient(45deg, hsla(353, 32%, 72%, 1) 0%, hsla(354, 88%, 41%, 1) 100%);
-    
-        background: -webkit-linear-gradient(45deg, hsla(353, 32%, 72%, 1) 0%, hsla(354, 88%, 41%, 1) 100%);
-    
-        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CFA2A7", endColorstr="#C50D1E", GradientType=1 );
-        background-repeat: no-repeat; 
-        background-size: cover; 
-        background-position: center center;
-        background-attachment: fixed; }
-#divform {  background-color: #ffffff; width: 100%;
-            padding: 0.5%; margin:0%;
-        }
-#divinput {width: 70%; padding: 0.1%;}
+html, body{
+    height: 100%;
+    overflow: auto;
+    font: 100% Helvetica, Arial; 
+    background-color:#2D3142 !important;
+}
+#divform {
+        background-color: #ffffff;
+        width: 100%;
+        padding: 0.5vh;
+        margin: 0%;
+    }
+#divinput {
+        width: 70%; padding: 0.1%;
+}
+form#chatForm {
+        display: flex;
+        flex-flow: column;
+        flex: auto;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+}
 #divbtn {float:left; margin-left: 0%; width: 30%; padding:0.1%;}
 #divbtn button {width: 100% !important; clear: left;margin-left: 0;}
-#convo{z-index:1; width:100%;}    
+#convo {
+        display: flex;
+        flex-flow: column;
+        flex: 1 1 auto;
+        height: 84.5vh;
+        overflow-y: scroll;
+    }
 #messages { list-style-type: none;
             margin: 0%; padding: 0%;}
 #messages li {
@@ -27,8 +38,8 @@ body {  font: 100% Helvetica, Arial;
 #messages p{
         margin-bottom: 0 !important; 
 }
-#messages li:nth-child(odd) { background-color: #CFA2A7; }
-#messages li:nth-child(even) { background-color: #FF6347;}
+#messages li:nth-child(odd) { background-color: #C49799; }
+#messages li:nth-child(even) { background-color: #AFD0D6;}
 #connect { background-color: #3DDC97 !important; }
 #disconnect { background-color: #FCB07E !important;}
 #errors {

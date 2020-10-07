@@ -137,7 +137,7 @@ io.sockets.on('connection', function(socket) { // quand le socket est crée
     })
 
     socket.on('chat_message', function(message,nochan) { // quand le serveur reçoit un message
-        io.emit('chat_message' + nochan, '<p class="text-break"> ' + '<strong>' + socket.username + '</strong>: ' + message + ' </p>');
+        io.emit('chat_message' + nochan, socket.username , message );
     });
   });
 //-----------------------------------------------------------------------------------------------------------------

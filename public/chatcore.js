@@ -7,6 +7,7 @@ var maxCharsPseudo = 30;
 var maxSizemsg = 300;
 var titrePage = document.title;        // Titre de la page
 var nochan = titrePage.substring(23);  // rouve le N° de chan dans lequel l'utilisateur se trouve
+var messages = document.getElementById('messages'); // Récupération du <ul> qui contient les messages
 //-----------------------------------------------------------------------------------------------------------------
 //Fonctions
 function stripHtml(html){              // permets de récupérer le "texte pur" d'une chaine de caractères contenant du markup html
@@ -17,8 +18,8 @@ function stripHtml(html){              // permets de récupérer le "texte pur" 
 	// renvoie le bon texte
 	return temporalDivElement.textContent || temporalDivElement.innerText || "";
 };
-function bottom() { // Défile jusqu'au bas du document
-	$(document).scrollTop($(document).height()); 
+function bottom() { // Défile jusqu'au bas du chat
+	$('#convo').scrollTop($('#messages').height());
 };
 function sendgoodsocket() { // envoie le bon socket de déconnexion
 	socket.emit('deco',nochan);
@@ -41,6 +42,7 @@ $('form').submit(function(e){
 			{
 				flagbon = false;
 				displayerrorwhitechar();
+				bottom();
 			}
 			else
 			{
@@ -57,11 +59,13 @@ $('form').submit(function(e){
 	{
 		flagbon = false;
 		displayerrortoolong(maxSizemsg);
+		bottom();
 	}
 	else                                // Si le message est vide ou ne contiens que des "<br>"
 	{
 		flagbon = false;
 		displayerrorwhitechar();
+		bottom();
 	}
 
 	if (flagbon)
@@ -69,12 +73,18 @@ $('form').submit(function(e){
 		socket.emit('chat_message', msg, nochan);
 	}
 	$('#txt').val('');
-	return false;
 	bottom();	//Scroll vers le bas auto
+	return false;
 });
 // Si le socket chat_message suivi du n° de salon est reçu, ajoute le message à la liste de messages et scrolle vers le bas;
-socket.on('chat_message' + nochan, function(msg){
-	$('#messages').append($('<li>').html(msg));
+socket.on('chat_message' + nochan, function(sender,msg){
+	var li = document.createElement('li');	// Création de l'élément dans lequel le message sera stocké
+	var p = document.createElement('p');	// création de la ligne
+	p.classList.add("text-break");			// Ajout de la classe qui permets le retour a la ligne quand message trop long
+	p.innerHTML = '<strong>' + sender + ': </strong> ';	// Ajout de la personne qui a envoyé le message
+	p.innerHTML +=  stripHtml(msg);						// Dans le cas ou il resterait du html dans le message, on l'enlève
+	li.append(p);
+	messages.append(li);
 	bottom();	//Scroll vers le bas auto
 });
 

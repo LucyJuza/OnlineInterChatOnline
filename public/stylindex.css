@@ -1,13 +1,5 @@
 body{
-background: hsla(354, 88%, 41%, 1);
-
-background: linear-gradient(45deg, hsla(354, 88%, 41%, 1) 10%, hsla(353, 32%, 72%, 1) 87%);
-
-background: -moz-linear-gradient(45deg, hsla(354, 88%, 41%, 1) 10%, hsla(353, 32%, 72%, 1) 87%);
-
-background: -webkit-linear-gradient(45deg, hsla(354, 88%, 41%, 1) 10%, hsla(353, 32%, 72%, 1) 87%);
-
-filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#c50d1e", endColorstr="#cfa2a7", GradientType=1 );
+background-color:#2D3142 !important; 
 }
 .card-text{
     text-align: justify;
@@ -21,7 +13,7 @@ html {
     margin-bottom: 60px;
   }
   footer, footer.div {
-    background-color: #E5E5E5;
+    background-color: #E2E2E2;
   }
 p.text-center{
     margin-bottom: 2%;

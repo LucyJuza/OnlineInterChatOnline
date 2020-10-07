@@ -1,18 +1,21 @@
-nav {background-color: #E5E5E5;
+nav {background-color: #E2E2E2;
     font-family: 'Menco', sans-serif !important;}
 nav li a {  text-decoration: none !important; 
        color:#000000 !important; }
-nav li a:hover{
-   color:#ff8181 !important;
+nav li a:hover,#ShowLess:hover{
+   color:#93867F !important;
 }
+#ShowLess{
+   text-decoration: none !important;
+   color:#000000 !important;}
 button.navbar-toggler {display: inline !important;}
 .row{margin-right: 0 !important;
    margin-left: 0 !important;}
 @font-face {font-family: "Menco";
-   src: url("https://db.onlinewebfonts.com/t/0a6e260470f1214cac84093970e409bd.eot"); /* IE9*/
-   src: url("https://db.onlinewebfonts.com/t/0a6e260470f1214cac84093970e409bd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-   url("https://db.onlinewebfonts.com/t/0a6e260470f1214cac84093970e409bd.woff2") format("woff2"), /* chrome firefox */ 
-   url("https://db.onlinewebfonts.com/t/0a6e260470f1214cac84093970e409bd.woff") format("woff"), /* chrome firefox */
-   url("https://db.onlinewebfonts.com/t/0a6e260470f1214cac84093970e409bd.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
-   url("https://db.onlinewebfonts.com/t/0a6e260470f1214cac84093970e409bd.svg#Menco") format("svg"); /* iOS 4.1- */
+   src: url("./ressources/MencoIE9.eot"); /* IE9*/
+   src: url("./ressources/MencoIE6-8.eot") format("embedded-opentype"), /* IE6-IE8 */
+   url("./ressources/MencoChromeFireFox1.woff2") format("woff2"), /* chrome firefox */ 
+   url("./ressources/MencoChromeFireFox2.woff") format("woff"), /* chrome firefox */
+   url("./ressources/MencoChromeFireFoxOperaEtc.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+   url("./ressources/MencoSVG.svg") format("svg"); /* iOS 4.1- */
 }

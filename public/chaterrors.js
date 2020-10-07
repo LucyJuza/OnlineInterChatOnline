@@ -9,7 +9,7 @@ zoneErreur.style.display = "none";                  // On rends la zone d'affich
                                                     // invisible une fois que la page a entièrement 
                                                     // fini de charger et a passé Le choix du nom d'utilisateur
 zoneErreur.innerText = "";                          // Puisqu'aucune erreur n'a été détectée à ce moment
-                                                    // On ne mets rien dans la one d'erreur
+                                                    // On ne mets rien dans la zone d'erreur
 
 function displayerrorwhitechar(){                   // Quand un message est vide
     zoneErreur.innerText = "Le corps du texte ne peut pas être vide";
