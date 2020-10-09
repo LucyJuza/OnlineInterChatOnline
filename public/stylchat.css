@@ -31,7 +31,7 @@ form#chatForm {
         display: flex;
         flex-flow: column;
         flex: 1 1 auto;
-        height: 84.5vh;
+        height: 86.6vh;
         overflow-y: scroll;
     }
 #messages { list-style-type: none;
@@ -42,7 +42,7 @@ form#chatForm {
 #messages p{
         margin-bottom: 0 !important; 
 }
-#messages li:nth-child(odd) { background-color: #C49799; }
+#messages li:nth-child(odd) { background-color: #DBD9DB; }
 #messages li:nth-child(even) { background-color: #AFD0D6;}
 #connect { background-color: #3DDC97 !important; }
 #disconnect { background-color: #FCB07E !important;}
