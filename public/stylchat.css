@@ -12,7 +12,7 @@ html, body{
         width: 100%;
         padding: 0.5vh;
         margin: 0%;
-        height: calc( 100vh - 86.6vh - 8vh );
+        height: calc( 100vh - 85.6vh - 8vh );
     }
 #divinput {
         width: 70%; padding: 0.1%;
@@ -31,7 +31,7 @@ form#chatForm {
         display: flex;
         flex-flow: column;
         flex: 1 1 auto;
-        height: 86.6vh;
+        height: 85.6vh;
         overflow-y: scroll;
     }
 #messages { list-style-type: none;
