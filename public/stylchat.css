@@ -35,7 +35,7 @@ form#chatForm {
         display: flex;
         flex-flow: column;
         flex: 1 1 auto;
-        height: calc( 100vh / 1.165 );
+        height: calc( 100vh / 1.157 );
         overflow-y: scroll;
 }
 #messages li {
