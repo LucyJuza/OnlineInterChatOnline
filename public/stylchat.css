@@ -13,6 +13,7 @@ html, body{
         padding: 0.5vh;
         margin: 0%;
         height: calc( 100vh - 85.6vh - 8vh );
+        align-content: center;
     }
 #divinput {
         width: 70%; padding: 0.1%;
