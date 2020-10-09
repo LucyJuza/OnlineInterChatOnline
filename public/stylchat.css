@@ -4,11 +4,15 @@ html, body{
     font: 100% Helvetica, Arial; 
     background-color:#2D3142 !important;
 }
+.navbar{
+        height: 8vh;
+}
 #divform {
         background-color: #ffffff;
         width: 100%;
         padding: 0.5vh;
         margin: 0%;
+        height: calc( 100vh - 86.6vh - 8vh );
     }
 #divinput {
         width: 70%; padding: 0.1%;
