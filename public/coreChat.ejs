@@ -1,22 +1,24 @@
 <!--Div pour les messages-->
 <div id="convo">
-    <ul id="messages"></ul>
-    <!--Div pour les erreurs-->
-    <div id="errors"class="alert alert-warning" role="alert">
-        Veuillez vous connecter pour commencer à chatter.
+    <div id="zoneAffichage">
+        <ul id="messages"></ul>
+        <!--Div pour les erreurs-->
+        <div id="errors"class="alert alert-warning" role="alert">
+            Veuillez vous connecter pour commencer à chatter.
+        </div>
     </div>
         <!--Div pour les erreurs-->
+    <form action="" method="POST" id="chatForm">
+        <!--Div de chat (input + btn)-->
+        <div id="divform" class="form-row">
+            <div id="divinput" class="col-auto">
+                <input id="txt" rows="1" class="form-control" autocomplete="off" autofocus="on" placeholder="Écrivez ici..." >
+            </div>
+            <div id="divbtn" class="col-auto">
+                <button class="btn btn-primary">Envoyer</button>
+            </div>
+        </div>
+            <!--Div de chat (input + btn)-->
+        </form>
 </div>
 <!--Div pour les messages-->
-<form action="" method="POST" id="chatForm">
-    <!--Div de chat (input + btn)-->
-    <div id="divform" class="form-row">
-        <div id="divinput" class="col-auto">
-            <input id="txt" rows="1" class="form-control" autocomplete="off" autofocus="on" placeholder="Écrivez ici..." >
-        </div>
-        <div id="divbtn" class="col-auto">
-            <button class="btn btn-primary">Envoyer</button>
-        </div>
-    </div>
-    <!--Div de chat (input + btn)-->
-</form>

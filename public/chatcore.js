@@ -19,7 +19,8 @@ function stripHtml(html){              // permets de récupérer le "texte pur" 
 	return temporalDivElement.textContent || temporalDivElement.innerText || "";
 };
 function bottom() { // Défile jusqu'au bas du chat
-	$('#convo').scrollTop($('#messages').height());
+	$('#zoneAffichage').scrollTop($('#messages').height());
+	$('body').scrollTop($('#zoneAffichage').height());
 };
 function sendgoodsocket() { // envoie le bon socket de déconnexion
 	socket.emit('deco',nochan);

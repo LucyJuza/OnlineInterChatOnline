@@ -4,15 +4,12 @@ html, body{
     font: 100% Helvetica, Arial; 
     background-color:#2D3142 !important;
 }
-.navbar{
-        height: 8vh;
-}
 #divform {
         background-color: #ffffff;
         width: 100%;
         padding: 0.5vh;
         margin: 0%;
-        height: calc( 100vh - 85.6vh - 8vh );
+        height: fit-content;
         align-content: center;
     }
 #divinput {
@@ -23,23 +20,27 @@ form#chatForm {
         flex-flow: column;
         flex: auto;
         width: 100%;
-        position: absolute;
+        position: sticky;
         bottom: 0;
+        margin: 0;
 }
 #divbtn {float:left; margin-left: 0%; width: 30%; padding:0.1%;}
 #divbtn button {width: 100% !important; clear: left;margin-left: 0;}
-#convo {
+#messages {
+        list-style-type: none;
+        margin: 0%;
+        padding: 0%;
+}
+#zoneAffichage{
         display: flex;
         flex-flow: column;
         flex: 1 1 auto;
-        height: 85.6vh;
+        height: calc( 100vh / 1.165 );
         overflow-y: scroll;
-    }
-#messages { list-style-type: none;
-            margin: 0%; padding: 0%;}
+}
 #messages li {
-                width: 100%;
-                font: 50%}
+        width: 100%;
+        font: 50%}
 #messages p{
         margin-bottom: 0 !important; 
 }
