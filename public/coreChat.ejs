@@ -1,5 +1,6 @@
-<!--Div pour les messages-->
+<!--Div pour les messages + header-->
 <div id="convo">
+    <%- include('./navBar') %> <!--Ajout de la navbar dans le conteneur flexible car sinon ; bug de layout-->
     <div id="zoneAffichage">
         <ul id="messages"></ul>
         <!--Div pour les erreurs-->
@@ -18,7 +19,7 @@
                 <button class="btn btn-primary">Envoyer</button>
             </div>
         </div>
-            <!--Div de chat (input + btn)-->
-        </form>
+                <!--Div de chat (input + btn)-->
+    </form>
 </div>
 <!--Div pour les messages-->
