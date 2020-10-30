@@ -87,13 +87,14 @@ function checkforCommands(msg){
 	switch (msg){
 		case "/nick":		// /nick permets de changer son pseudo
 			flag = false
-			document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // suppression de l'ancien cookie
 			var newUserName = defineValidUserName();	// Appel de la fonction de définition du pseudo
 			socket.emit('usernameChanged', newUserName,nochan);   // envoi du socket "username" avec le nom choisi et le n° du salon
 		break;
 	}
 	return flag
 }
+
 // Si le socket chat_message suivi du n° de salon est reçu, ajoute le message à la liste de messages et scrolle vers le bas;
 socket.on('chat_message' + nochan, function(sender,msg){
 	var li = document.createElement('li');	// Création de l'élément dans lequel le message sera stocké
@@ -122,9 +123,10 @@ socket.on('is_down' + nochan, function(username) {
 var userCookied=getCookie("username"); // On récupère le cookie username
 if(userCookied == "" || userCookied.substring(0,1) != "「" ||
  userCookied.substring(userCookied.length - 1,userCookied.length) != "」" ||
- !(/<\/?[a-z][\s\S]*>/i.test(username))) // Teste si le cookie existe et si le pseudo est dans le format conventionnel
+ !(/<\/?[a-z][\s\S]*>/i.test(username))) // Teste si le cookie existe et si le pseudo du cookie
+ 										 // est dans le format conventionnel
 {
-	var username = defineValidUserName();
+	var username = defineValidUserName();	// Appel de la fonction pour définir un pseudo correct
 }
 else{
 	var username = userCookied;	// Si le cookie existe -> le username est le nom dans le cookie
@@ -154,32 +156,35 @@ function defineValidUserName(){	// Permets de faire différents tests et de déf
 	}
 	if (username != "「      」")	// si le nom d'utilisateur n'est pas un nom d'utilisateur vide
 	{
-		setCookie("username",username,5)	// On crée un cookie du nom d'utilisateur valable pour 10 jours
+		setCookie("username",username,10)	// On crée un cookie du nom d'utilisateur valable pour 10 jours
 	}
 	return username;
 
 }
 //----------------------------------------------------------------------------------------------------------------
 // Cookies
+
+// Fonction permettant de créer un cookie avec so nom, sa valeur, et son expiration en nb de jours
 function setCookie(cname,cvalue,exdays) {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires=" + d.toGMTString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	var d = new Date();	// Récupération de la date actuelle
+	d.setTime(d.getTime() + (exdays*24*60*60*1000)); // date en jours
+	var expires = "expires=" + d.toGMTString(); // format GMT
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"; // Création du cookie
 }
   
+// fonction pour récupérer la valeur d'un cookie spécifique
 function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
+	var name = cname + "=";		// format pour les cookies
+	var decodedCookie = decodeURIComponent(document.cookie); // décode les coookie en cas de carac. non latins
+	var ca = decodedCookie.split(';');	// Permets de spliter les cookies
 	for(var i = 0; i < ca.length; i++) {
 	  var c = ca[i];
-	  while (c.charAt(0) == ' ') {
+	  while (c.charAt(0) == ' ') { // éviter les bouts vide au début
 		c = c.substring(1);
 	  }
-	  if (c.indexOf(name) == 0) {
-		return c.substring(name.length, c.length);
+	  if (c.indexOf(name) == 0) { // si c'est le bon cookie
+		return c.substring(name.length, c.length);	// Retourne la valeur du cookie
 	  }
 	}
-	return "";
+	return "";	 // Si le cookie n'existe pas -> retourne une chaine vide
 }
