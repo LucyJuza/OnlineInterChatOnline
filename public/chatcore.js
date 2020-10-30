@@ -123,7 +123,7 @@ socket.on('is_down' + nochan, function(username) {
 var userCookied=getCookie("username"); // On récupère le cookie username
 if(userCookied == "" || userCookied.substring(0,1) != "「" ||
  userCookied.substring(userCookied.length - 1,userCookied.length) != "」" ||
- !(/<\/?[a-z][\s\S]*>/i.test(username))) // Teste si le cookie existe et si le pseudo du cookie
+ /<\/?[a-z][\s\S]*>/i.test(username)) // Teste si le cookie existe et si le pseudo du cookie
  										 // est dans le format conventionnel
 {
 	var username = defineValidUserName();	// Appel de la fonction pour définir un pseudo correct
