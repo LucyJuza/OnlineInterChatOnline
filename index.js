@@ -12,9 +12,6 @@ let port = process.env.PORT;              // Détermination du port utilisé (He
 if (port == null || port == "") {
   port = 9001;                            // Si projet local -> pas de port définit par heroku, donc initialiser un port
 }
-var reqipbase;        // Ip de l'utilisateur sous forme "brute"
-var reqiplist;        // Ip de l'utilisateur sous forme de liste
-var reqip;            // Ip de l'utilisateur sous forme lisible facilement
 var server = app.listen(port);                  // Définition de l'écoute du serveur sur le bon port
 const io = require("socket.io").listen(server);   // Intégration du module Socket.io
 var path = require("path");                       // Intégration du module "Path
@@ -55,9 +52,9 @@ function logconnection(req) {
   } else {
     ipAddr = req.connection.remoteAddress;  // Si pas de proxy -> Récupère simplement l’ip
   }
-  reqipbase = String(ipAddr);               // Transfer de l'adresse illisible humainement vers une variable déclarée préalablement
-  reqiplist = reqipbase.split(":");           // Sépare l'ip reçue au niveau des ":"
-  reqip = reqiplist[(reqiplist.length -1)];   // On récupère seulement la dernière partie
+  var reqipbase = String(ipAddr);               // Transfer de l'adresse illisible humainement vers une variable déclarée préalablement
+  var reqiplist = reqipbase.split(":");           // Sépare l'ip reçue au niveau des ":"
+  var reqip = reqiplist[(reqiplist.length -1)];   // On récupère seulement la dernière partie
   // Partie logging de la connexion
   console.log("Nouvelle connexion au serveur depuis: " + reqip); // Permets d'écrire que quelqu'un s'est connecté au site dans la console.
 }
@@ -65,10 +62,16 @@ function logconnection(req) {
 // Partie de gestion des sockets
 
 io.sockets.on('connection', function(socket) { // quand le socket est crée
-    // Sockets de, connexion, déconnection et d'envoi de message
+    // Sockets de, connexion,changement de pseudo, déconnection et d'envoi de message
+
     socket.on('username', function(username,nochan) { // quand l'utilisateur a défini son pseudo
         socket.username = username;
         io.emit('is_online' + nochan, '🔵 <i>' + socket.username + ' a rejoint le salon</i>');
+    });
+
+    socket.on('usernameChanged', function(username,nochan) { // quand l'utilisateur change son pseudo
+        io.emit('chat_message' + nochan, socket.username, "rennomage en \"" + username + "\"");
+        socket.username = username;
     });
 
     socket.on('deco', function(nochan) {  // quand un utilisateur se déconnecte.
