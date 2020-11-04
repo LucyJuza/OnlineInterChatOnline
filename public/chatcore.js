@@ -121,16 +121,15 @@ socket.on('is_down' + nochan, function(username) {
 //-----------------------------------------------------------------------------------------------------------------
 // Gestion du Pseudo choisi par l'utilisateur
 var userCookied=getCookie("username"); // On récupère le cookie username
-if(userCookied == "" || userCookied.substring(0,1) != "「" ||
- userCookied.substring(userCookied.length - 1,userCookied.length) != "」" ||
- /<\/?[a-z][\s\S]*>/i.test(username)) // Teste si le cookie existe et si le pseudo du cookie
- 										 // est dans le format conventionnel
+if(userCookied != "" && ( userCookied.substring(0,1) == "「" &&
+ userCookied.substring(userCookied.length - 1,userCookied.length) == "」" ) &&
+ !(/<\/?[a-z][\s\S]*>/i.test(userCookied)) ) // Teste si le cookie existe et si le pseudo du cookie est dans le format conventionnel
 {
-	var username = defineValidUserName();	// Appel de la fonction pour définir un pseudo correct
-}
-else{
 	var username = userCookied;	// Si le cookie existe -> le username est le nom dans le cookie
 	alert("Re " + username + "! Tu peux changer ton pseudo en écrivant \"/nick\" dans le chat");
+}
+else{
+	var username = defineValidUserName();	// Appel de la fonction pour définir un pseudo correct
 }
 socket.emit('username', username,nochan);   // envoi du socket "username" avec le nom choisi et le n° du salon
 
