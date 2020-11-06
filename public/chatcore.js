@@ -35,9 +35,9 @@ function sendgoodsocket() {
 var socket = io();
 window.onbeforeunload = sendgoodsocket;
 
-// submit text message without reload/refresh the page
+// Envoie le message sans refresh la page
 $('form').submit(function(e){
-	e.preventDefault(); // prevents page reloading
+	e.preventDefault(); // empêche la page de se recharger
 	var flagbon = false;
 	var msg = $('#txt').val();
 	if (/\S/.test(msg) && msg.length <= maxSizemsg) { 
