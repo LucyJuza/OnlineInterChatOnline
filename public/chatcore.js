@@ -10,7 +10,9 @@ var nochan = titrePage.substring(23);  // rouve le N° de chan dans lequel l'uti
 var messages = document.getElementById('messages'); // Récupération du <ul> qui contient les messages
 //-----------------------------------------------------------------------------------------------------------------
 //Fonctions
-function stripHtml(html){              // permets de récupérer le "texte pur" d'une chaine de caractères contenant du markup html
+
+// permets de récupérer le "texte pur" d'une chaine de caractères contenant du markup html
+function stripHtml(html){ 
 	// Création elément temporaire
 	var temporalDivElement = document.createElement("div");
 	// Init
@@ -18,17 +20,21 @@ function stripHtml(html){              // permets de récupérer le "texte pur" 
 	// renvoie le bon texte
 	return temporalDivElement.textContent || temporalDivElement.innerText || "";
 };
-function bottom() { // Défile jusqu'au bas du chat
+// Défile jusqu'au bas du chat
+function bottom() { 
 	$('#zoneAffichage').scrollTop($('#messages').height());
 	$('body').scrollTop($('#zoneAffichage').height());
 };
-function sendgoodsocket() { // envoie le bon socket de déconnexion
+
+// envoie le bon socket de déconnexion
+function sendgoodsocket() { 
 	socket.emit('deco',nochan);
 };
 //-----------------------------------------------------------------------------------------------------------------
 // Logique d'interaction des sockets
 var socket = io();
 window.onbeforeunload = sendgoodsocket;
+
 // submit text message without reload/refresh the page
 $('form').submit(function(e){
 	e.preventDefault(); // prevents page reloading
@@ -97,7 +103,7 @@ function checkforCommands(msg){
 
 // Si le socket chat_message suivi du n° de salon est reçu, ajoute le message à la liste de messages et scrolle vers le bas;
 socket.on('chat_message' + nochan, function(sender,msg){
-	var li = document.createElement('li');	// Création de l'élément dans lequel le message sera stocké
+	var li = document.createElement('li');	// Création de l'élément dans lequel le message sera stockés
 	var p = document.createElement('p');	// création de la ligne
 	p.classList.add("text-break");			// Ajout de la classe qui permets le retour a la ligne quand message trop long
 	p.innerHTML = '<strong>' + sender + ': </strong> ';	// Ajout de la personne qui a envoyé le message
@@ -133,7 +139,8 @@ else{
 }
 socket.emit('username', username,nochan);   // envoi du socket "username" avec le nom choisi et le n° du salon
 
-function defineValidUserName(){	// Permets de faire différents tests et de définir un nom "vide" le cas échéant
+// Permets de faire différents tests et de définir un nom "vide" le cas échéant
+function defineValidUserName(){	
 
 	var username = prompt('Quel pseudo souhaitez-vous utiliser ?'); // "prompt de la question"
 	if (username == null) {         // Test de si l'utilisateur a appuyé sur "cancel"
