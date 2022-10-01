@@ -87,7 +87,7 @@ git clone https://github.com/NoeJuza/OnlineInterChatOnline.git
 ```
 2. Install NPM packages and run the server
 ```sh
-npm install && npm run
+npm install && npm run start
 ```
 
 
