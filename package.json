@@ -1,7 +1,7 @@
 {
   "name": "onlineinterchat",
   "version": "1.0.0",
-  "description": "Projet de chat dans le cadre des portes ouvertes de l'EPTM",
+  "description": "Online chatting project",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -11,10 +11,7 @@
   "dependencies": {
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "http": "0.0.1-security",
-    "nodemon": "^2.0.4",
     "serve-favicon": "^2.5.0",
-    "socket.io": "^2.3.0",
-    "winston": "^3.3.3"
+    "socket.io": "^2.3.0"
   }
 }
