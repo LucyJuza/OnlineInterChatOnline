@@ -128,7 +128,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-NoeJuza - Noe.Juzan@edueptm.ch
+NoeJuza - noe.juzan.pro@gmail.com
 
 Project Link: [https://github.com/NoeJuza/OnlineInterChatOnline](https://github.com/NoeJuza/OnlineInterChatOnline)
 
